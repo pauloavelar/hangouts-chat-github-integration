@@ -19,7 +19,7 @@ package:
 
 functions:
   handlePullRequestEvent:
-    handler: handlers.pullRequestEvents
+    handler: handlers.handlePullRequests
     memorySize: 128
     timeout: 10
     events:
