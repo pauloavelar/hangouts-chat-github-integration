@@ -22,7 +22,7 @@ functions:
     handler: handlers.handlePullRequests
     memorySize: 128
     timeout: 10
-    environmentVariables:
+    environment:
       WHITELISTED_SPACES: AAAAdVekrco
     events:
       - http:
