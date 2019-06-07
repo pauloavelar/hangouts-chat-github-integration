@@ -19,9 +19,11 @@ package:
 
 functions:
   handlePullRequestEvent:
-    handler: handlers.pullRequestEvents
+    handler: handlers.handlePullRequests
     memorySize: 128
     timeout: 10
+    environment:
+      WHITELISTED_SPACES: AAAAdVekrco
     events:
       - http:
           path: /v1/spaces/{spaceId}/messages

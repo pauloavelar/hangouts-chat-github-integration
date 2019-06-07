@@ -1,5 +1,5 @@
-const pullRequestEvents = require('./src/pull-request');
+const { handlePullRequests } = require('./src/pull-request-handler');
 
 module.exports = {
-  pullRequestEvents,
+  handlePullRequests,
 };

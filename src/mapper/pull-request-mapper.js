@@ -1,45 +1,8 @@
-'use strict';
+const { InvalidEventError } = require('../error/invalid-event-error');
 
-const fetch = require('node-fetch');
-
-const { buildResponse } = require('./util/http-helper');
-const { getWhitelistedSpaces } = require('./util/whitelisted-spaces');
-
-module.exports = handlePullRequests;
-
-async function handlePullRequests(event, _, callback) {
-  try {
-    const validSpaces = getWhitelistedSpaces();
-    const { spaceId } = event.pathParameters;
-
-    if (!validSpaces.includes(spaceId)) {
-      return callback(null, buildResponse({ error: 'Unauthorized spaceId' }, 403));
-    }
-
-    const { key, token } = event.queryStringParameters;
-    const body = JSON.parse(event.body);
-
-    const url = mapToUrl(spaceId, key, token);
-    const message = mapToHangoutsMessage(body);
-
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(message),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json());
-  
-    callback(null, buildResponse(response));
-  } catch (err) {
-    const body = { error: 'Invalid payload: ' + err.message };
-    callback(null, buildResponse(body, 400));
-  }
-}
-
-function mapToUrl(spaceId, key, token) {
-  return `https://chat.googleapis.com/v1/spaces/${spaceId}/messages?key=${key}&token=${token}`;
-}
+module.exports = {
+  mapToHangoutsMessage
+};
 
 function mapToHangoutsMessage(body) {
   return {
@@ -111,7 +74,6 @@ function mapToHangoutsMessage(body) {
             ]
           }
         ]
-
       }
     ]
   }
@@ -122,7 +84,7 @@ function mapActionToTitle(action) {
     case 'opened':
       return 'New Pull Request';
     default:
-      throw new Error('Not yet implemented');
+      throw new InvalidEventError('Not yet implemented');
   }
 }
 
