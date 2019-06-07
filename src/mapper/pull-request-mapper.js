@@ -1,3 +1,5 @@
+const { InvalidEventError } = require('../error/invalid-event-error');
+
 module.exports = {
   mapToHangoutsMessage
 };
@@ -72,7 +74,6 @@ function mapToHangoutsMessage(body) {
             ]
           }
         ]
-
       }
     ]
   }

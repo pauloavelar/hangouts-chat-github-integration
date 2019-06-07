@@ -6,6 +6,7 @@ const { buildResponse } = require('./util/http-helper');
 const { isEventValid } = require('./util/whitelisted-events');
 const { getWhitelistedSpaces } = require('./util/whitelisted-spaces');
 const { mapToHangoutsMessage } = require('./mapper/pull-request-mapper');
+const { InvalidEventError } = require('./error/invalid-event-error');
 
 module.exports = {
   handlePullRequests
