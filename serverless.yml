@@ -1,0 +1,29 @@
+service: hangouts-chat-github-integration
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  usagePlan:
+    throttle:
+      burstLimit: 100
+      rateLimit: 50
+
+package:
+  exclude:
+    - examples/*
+    - ./*.env
+    - LICENSE
+    - package*.json
+    - README.md
+    - test.js
+
+functions:
+  handlePullRequestEvent:
+    handler: handlers.pullRequestEvents
+    memorySize: 128
+    timeout: 10
+    events:
+      - http:
+          path: /v1/spaces/{spaceId}/messages
+          method: post
+          cors: true
