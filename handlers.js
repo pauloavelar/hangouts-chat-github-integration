@@ -1,5 +1,6 @@
-const { handlePullRequests } = require('./src/pull-request-handler');
+const { wrapLambda } = require('./src/util/lambda-wrapper');
+const { handleEvents } = require('./src/handler/event-handler');
 
 module.exports = {
-  handlePullRequests,
+  handleEvents: wrapLambda(handleEvents),
 };

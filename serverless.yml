@@ -2,7 +2,7 @@ service: hangouts-chat-github-integration
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   usagePlan:
     throttle:
       burstLimit: 100
@@ -16,10 +16,11 @@ package:
     - package*.json
     - README.md
     - test.js
+    - .eslintrc.yml
 
 functions:
-  handlePullRequestEvent:
-    handler: handlers.handlePullRequests
+  handleEvents:
+    handler: handlers.handleEvents
     memorySize: 128
     timeout: 10
     environment:
