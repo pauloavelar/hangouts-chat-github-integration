@@ -2,10 +2,16 @@
 
 const fetch = require('node-fetch');
 
-module.exports = {
-  handleClosedPullRequest,
-};
+const { mapToClosedPrMessage } = require('../../mapper/pr-closed-mapper');
 
-function handleClosedPullRequest(options) {
+module.exports = { handleClosedPullRequest };
 
+function handleClosedPullRequest({ payload, url }) {
+  const message = mapToClosedPrMessage(payload);
+
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(message),
+    headers: { 'Content-Type': 'application/json' },
+  }).then(res => res.json());
 }

@@ -1,7 +1,6 @@
 'use strict';
 
-const { actions } = require('../../config/constants');
-const { urls } = require('../../config/constants');
+const { actions, urls } = require('../../config/constants');
 const { buildUrl } = require('../../util/http-helper');
 const { InvalidActionError } = require('../../error/invalid-action-error');
 
@@ -23,6 +22,6 @@ function handlePullRequest(options) {
     case actions.CLOSED:
       return handleClosedPullRequest(fullOptions);
     default:
-      throw InvalidActionError(options.action);
+      throw new InvalidActionError(options.action);
   }
 }

@@ -1,3 +1,5 @@
+const { mapOnClick } = require('./on-click-mapper');
+
 module.exports = { mapKeyValue };
 
 function mapKeyValue({ topLabel, content, url, icon = 'BOOKMARK' }) {
@@ -6,9 +8,7 @@ function mapKeyValue({ topLabel, content, url, icon = 'BOOKMARK' }) {
       topLabel,
       content,
       contentMultiline: false,
-      onClick: {
-        openLink: { url },
-      },
+      onClick: mapOnClick(url),
       icon,
     },
   };

@@ -5,7 +5,9 @@ const { UnauthorizedSpaceError } = require('../error/unauthorized-space-error');
 const { getWhitelistedEvents } = require('./whitelisted-events');
 const { getWhitelistedSpaces } = require('./whitelisted-spaces');
 
-async function wrapLambda(handler) {
+module.exports = { wrapLambda };
+
+function wrapLambda(handler) {
   return async function lambdaHandler(event, _, callback) {
     try {
       const { spaceId } = event.pathParameters;
@@ -25,7 +27,7 @@ async function wrapLambda(handler) {
         throw new InvalidEventError(eventType);
       }
 
-      const response = await handler({ spaceId, payload, key, token, action });
+      const response = await handler({ spaceId, payload, key, token, eventType, action });
 
       callback(null, buildResponse(response, 201));
     } catch (err) {
@@ -41,7 +43,3 @@ async function wrapLambda(handler) {
     }
   };
 }
-
-module.exports = {
-  wrapLambda,
-};

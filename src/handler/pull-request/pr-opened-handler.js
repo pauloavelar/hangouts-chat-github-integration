@@ -1,11 +1,11 @@
 const fetch = require('node-fetch');
 
-const { mapToHangoutsMessage } = require('../../mapper/pr-opened-mapper');
+const { mapToOpenedPrMessage } = require('../../mapper/pr-opened-mapper');
 
 module.exports = { handleOpenedPullRequest };
 
 function handleOpenedPullRequest({ payload, url }) {
-  const message = mapToHangoutsMessage(payload);
+  const message = mapToOpenedPrMessage(payload);
 
   return fetch(url, {
     method: 'POST',
