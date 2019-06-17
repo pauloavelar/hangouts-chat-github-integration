@@ -2,12 +2,12 @@ const { actions } = require('../config/constants');
 
 module.exports = { mapActionToTitle };
 
-function mapActionToTitle(action, merged) {
+function mapActionToTitle(action) {
   switch (action) {
     case actions.OPENED:
       return 'New Pull Request';
     case actions.CLOSED:
-      return merged ? 'PR merged' : 'PR closed';
+      return 'Pull Request updated';
     default:
       return 'Unknown action';
   }
