@@ -8,7 +8,7 @@ function mapToClosedPrMessage(body) {
       header: {
         title: mapActionToTitle(body.action),
         subtitle: mapToSubtitle(body),
-        imageUrl: mapCardImage(body.merged),
+        imageUrl: mapCardImage(body.pull_request.merged),
         imageStyle: 'AVATAR',
       },
     }],
