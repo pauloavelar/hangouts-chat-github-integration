@@ -1,12 +1,9 @@
+module.exports = { getWhitelistedEvents };
+
 const validEvents = [
-  'pull_request'
+  'pull_request',
 ];
 
-module.exports = {
-  isEventValid
-};
-
-function isEventValid(event) {
-  const eventType = event.headers['X-GitHub-Event'];
-  return validEvents.includes(eventType);
+function getWhitelistedEvents() {
+  return validEvents;
 }
