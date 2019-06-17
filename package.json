@@ -1,10 +1,11 @@
 {
   "name": "hangouts-chat-github-integration",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "AWS Lambda functions for converting GitHub events into Hangouts Chat messages for webhooks",
   "main": "handlers.js",
   "scripts": {
     "deploy": "env-cmd -f ./deploy-keys.env serverless deploy",
+    "lint": "eslint --config .eslintrc.yml src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
