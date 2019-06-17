@@ -1,5 +1,6 @@
 const { headers } = require('../config/constants');
 const { buildResponse } = require('./http-helper');
+const { InvalidActionError } = require('../error/invalid-action-error');
 const { InvalidEventError } = require('../error/invalid-event-error');
 const { UnauthorizedSpaceError } = require('../error/unauthorized-space-error');
 const { getWhitelistedEvents } = require('./whitelisted-events');
@@ -32,6 +33,10 @@ function wrapLambda(handler) {
       callback(null, buildResponse(response, 201));
     } catch (err) {
       if (err instanceof InvalidEventError) {
+        return callback(null, buildResponse({ message: err.message }, 200));
+      }
+
+      if (err instanceof InvalidActionError) {
         return callback(null, buildResponse({ message: err.message }, 200));
       }
 
